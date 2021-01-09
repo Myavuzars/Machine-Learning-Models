@@ -1,0 +1,40 @@
+---
+title: "LDA QDA KNN MODELS"
+author: "Mustafa Arslan"
+date: "12/23/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+#Brief Notes about LDA QDA and KNN
+
+Logistic Regression, Linear Discriminant Analysis(LDA), Quadratic discriminant Analysis(QDA) and K-Nearest Neighbor(KNN) are widely used Machine learning techniques for classification problems. Logistic Regression can be used only for Binary Categorical response, that is, if there are morethan two categorical response variables then we will use the other techniques.
+
+Nevertheless, LDA, QDA and KNN are more suitable for predicting the category in the situation where the response variable contains more than two classes.
+
+In Logistic Regression, 
+
+When the distributions are assumed to be a Normal, we expect the model very similar to Logistic Regression. However, if the predictors are well separated then we expect better result from LDA.
+
+Likewise, if n small and the distribution of the predictors is approximately Normal in the predictors, LDA returns better result than Logistic Regresssion. 
+
+LDA uses Baye's theorem for classification, we assume that predictors that we use for classification are drawn from Gaussian Distribtution, with a specific mean and a common covariance matrix.
+
+QDA also assume that predictors are drawn from Gaussian Distribution, however, QDA assumes that each predictor has their own covariance matrix.  
+
+
+QDA assumes that each class has its own covariance matrix.That is, it assumes that an observation from the kth class is of the from X ~ N(muk,SigmaK), where sigmak is a covarinace matrix for the kth class.
+
+By using share common covariance matrix in LDA, LDA model becomes linear and QDA uses covariance matrix for each class, QDA becomes quadratic function.  
+
+
+However, KNN uses completely different approach, KNN uses feature similarity to predict the response variables. 
+
+
+
+
+
+

@@ -1,0 +1,112 @@
+---
+title: "Quadratic Discriminant Analysis"
+author: "Mustafa Arslan"
+date: "12/22/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r}
+
+getwd()
+setwd("C:/Users/myavu/OneDrive/Desktop/DATA SCIENCE/R/My Projects/Data Mining")
+getwd()
+fdata<-read.table("football_data.txt", header = T) 
+head(fdata)
+
+#labels:  1:  High School football players, 
+#         2:  College football players, 
+#        3:  non-football players in college
+
+```
+ 
+ 
+ 
+```{r}
+#REquired libraries
+
+library(psych)
+library(MASS)
+```
+ 
+ 
+```{r}
+head(fdata[2:7])
+
+
+cor(fdata)
+
+pairs.panels(fdata[2:7],
+            gap=0,
+            bg=c("green", "blue", "red")[fdata$group],
+            pch=21)
+
+```
+
+
+
+```{r}
+#Partition for training and  test data
+set.seed(100)
+ind <- sample(2, nrow(fdata),replace=T, prob = c(0.7,0.3))
+train <- fdata[ind==1,]
+test  <- fdata[ind==2,]
+
+
+dim(train)
+dim(test)
+
+```
+
+
+```{r}
+qda.fit =qda(group~., data = train)
+summary(train)
+qda.fit
+
+```
+
+
+```{r}
+#PREDICTION & CONFUSION TABLE FOR TRAINING SET
+
+pred.train <- predict(qda.fit,train)$class
+
+#Accuracy on training data
+mean(pred.train == train$group)
+
+table(pred.train,train$group)
+
+
+```
+
+```{r}
+#PREDICTION & CONFUSION TABLE FOR TEST SET
+pred.test <- predict(qda.fit,test)$class
+
+#Accuracy on test data
+mean(pred.test == test$group)
+
+table(pred.test,test$group)
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
