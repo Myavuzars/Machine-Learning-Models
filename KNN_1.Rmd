@@ -13,8 +13,7 @@ library(psych)
 
 ```{r}
 getwd()
-setwd("C:/Users/myavu/OneDrive/Desktop/DATA SCIENCE/R/My Projects/Data Mining")
-
+setwd("C:/Users/myavu/OneDrive/Desktop/DATA SCIENCE/R/My Projects/GITHUB/Machine-Learning-Models")
 ```
 
 ```{r}
