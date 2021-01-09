@@ -287,7 +287,7 @@ $(document).ready(function () {
   <a href="index.html">LDA QDA KNN</a>
 </li>
 <li>
-  <a href="Quadratic_Discriminant_Analysis_1.html">Linear Discriminant Analysis</a>
+  <a href="Linear_Discriminant_Analysis_1.html">Linear Discriminant Analysis</a>
 </li>
 <li>
   <a href="Quadratic_Discriminant_Analysis_1.html">Quadratic Discriminant Analysis</a>
@@ -314,9 +314,6 @@ $(document).ready(function () {
 
 <pre class="r"><code>library(class)
 library(psych)</code></pre>
-<pre class="r"><code>getwd()</code></pre>
-<pre><code>## [1] &quot;C:/Users/myavu/OneDrive/Desktop/DATA SCIENCE/R/My Projects/GITHUB/Machine-Learning-Models&quot;</code></pre>
-<pre class="r"><code>setwd(&quot;C:/Users/myavu/OneDrive/Desktop/DATA SCIENCE/R/My Projects/GITHUB/Machine-Learning-Models&quot;)</code></pre>
 <pre class="r"><code>fdata&lt;-read.table(&quot;football_data.txt&quot;, header = T) 
 head(fdata)</code></pre>
 <pre><code>##   group WDIM CIRCUM FBEYE EYEHD EARHD JAW
@@ -350,7 +347,7 @@ head(fdata)</code></pre>
              gap=0,
              bg=c(&quot;green&quot;, &quot;blue&quot;, &quot;red&quot;)[fdata$group],
              pch=21)</code></pre>
-<p><img src="KNN_1_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<p><img src="KNN_1_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
 <pre class="r"><code>#Partition for training and  test data
 set.seed(100)
 ind &lt;- sample(2, nrow(fdata),replace=T, prob = c(0.7,0.3))

@@ -6,7 +6,7 @@ navbar:
   - text: "LDA QDA KNN"
     href: index.html
   - text: "Linear Discriminant Analysis"
-    href: Quadratic_Discriminant_Analysis_1.html
+    href: Linear_Discriminant_Analysis_1.html
   - text: "Quadratic Discriminant Analysis"
     href: Quadratic_Discriminant_Analysis_1.html
   - text: "K Nearest Neighbor"

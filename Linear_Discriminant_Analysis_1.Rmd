@@ -9,9 +9,6 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ```{r}
 
-getwd()
-setwd("C:/Users/myavu/OneDrive/Desktop/DATA SCIENCE/R/My Projects/Data Mining")
-getwd()
 fdata<-read.table("football_data.txt", header = T) 
 head(fdata)
 
