@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Quadratic Discriminant Analysis</title>
+
+<script src="site_libs/header-attrs-2.5/header-attrs.js"></script>
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="site_libs/anchor-sections-1.0/anchor-sections.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">LDA QDA KNN</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">LDA QDA KNN</a>
+</li>
+<li>
+  <a href="Quadratic_Discriminant_Analysis_1.html">Linear Discriminant Analysis</a>
+</li>
+<li>
+  <a href="Quadratic_Discriminant_Analysis_1.html">Quadratic Discriminant Analysis</a>
+</li>
+<li>
+  <a href="KNN_1.html">K Nearest Neighbor</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Quadratic Discriminant Analysis</h1>
+
+</div>
+
+
+<pre class="r"><code>getwd()</code></pre>
+<pre><code>## [1] &quot;C:/Users/myavu/OneDrive/Desktop/DATA SCIENCE/R/My Projects/GITHUB/Machine-Learning-Models&quot;</code></pre>
+<pre class="r"><code>setwd(&quot;C:/Users/myavu/OneDrive/Desktop/DATA SCIENCE/R/My Projects/Data Mining&quot;)
+getwd()</code></pre>
+<pre><code>## [1] &quot;C:/Users/myavu/OneDrive/Desktop/DATA SCIENCE/R/My Projects/Data Mining&quot;</code></pre>
+<pre class="r"><code>fdata&lt;-read.table(&quot;football_data.txt&quot;, header = T) 
+head(fdata)</code></pre>
+<pre><code>##   group WDIM CIRCUM FBEYE EYEHD EARHD JAW
+## 1     1 13.5  57.15  19.5  12.5  14.0  11
+## 2     1 15.5  58.42  21.0  12.0  16.0  12
+## 3     1 14.5  55.88  19.0  10.0  13.0  12
+## 4     1 15.5  58.42  20.0  13.5  15.0  12
+## 5     1 14.5  58.42  20.0  13.0  15.5  12
+## 6     1 14.0  60.96  21.0  12.0  14.0  13</code></pre>
+<pre class="r"><code>#labels:  1:  High School football players, 
+#         2:  College football players, 
+#        3:  non-football players in college</code></pre>
+<pre class="r"><code>#REquired libraries
+
+library(psych)
+library(MASS)</code></pre>
+<pre class="r"><code>head(fdata[2:7])</code></pre>
+<pre><code>##   WDIM CIRCUM FBEYE EYEHD EARHD JAW
+## 1 13.5  57.15  19.5  12.5  14.0  11
+## 2 15.5  58.42  21.0  12.0  16.0  12
+## 3 14.5  55.88  19.0  10.0  13.0  12
+## 4 15.5  58.42  20.0  13.5  15.0  12
+## 5 14.5  58.42  20.0  13.0  15.5  12
+## 6 14.0  60.96  21.0  12.0  14.0  13</code></pre>
+<pre class="r"><code>cor(fdata)</code></pre>
+<pre><code>##             group        WDIM     CIRCUM      FBEYE       EYEHD       EARHD
+## group   1.0000000  0.23434774 -0.2548989 -0.1645302 -0.52275886 -0.44475644
+## WDIM    0.2343477  1.00000000  0.3865501  0.2708419 -0.06085635  0.07884543
+## CIRCUM -0.2548989  0.38655006  1.0000000  0.7789327  0.46982158  0.39087246
+## FBEYE  -0.1645302  0.27084189  0.7789327  1.0000000  0.20036649  0.28708706
+## EYEHD  -0.5227589 -0.06085635  0.4698216  0.2003665  1.00000000  0.63038948
+## EARHD  -0.4447564  0.07884543  0.3908725  0.2870871  0.63038948  1.00000000
+## JAW    -0.2988388  0.45450662  0.5056499  0.3842090  0.23240843  0.17332363
+##               JAW
+## group  -0.2988388
+## WDIM    0.4545066
+## CIRCUM  0.5056499
+## FBEYE   0.3842090
+## EYEHD   0.2324084
+## EARHD   0.1733236
+## JAW     1.0000000</code></pre>
+<pre class="r"><code>pairs.panels(fdata[2:7],
+            gap=0,
+            bg=c(&quot;green&quot;, &quot;blue&quot;, &quot;red&quot;)[fdata$group],
+            pch=21)</code></pre>
+<p><img src="Quadratic_Discriminant_Analysis_1_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<pre class="r"><code>#Partition for training and  test data
+set.seed(100)
+ind &lt;- sample(2, nrow(fdata),replace=T, prob = c(0.7,0.3))
+train &lt;- fdata[ind==1,]
+test  &lt;- fdata[ind==2,]
+
+
+dim(train)</code></pre>
+<pre><code>## [1] 65  7</code></pre>
+<pre class="r"><code>dim(test)</code></pre>
+<pre><code>## [1] 25  7</code></pre>
+<pre class="r"><code>qda.fit =qda(group~., data = train)
+summary(train)</code></pre>
+<pre><code>##      group            WDIM           CIRCUM          FBEYE      
+##  Min.   :1.000   Min.   :13.50   Min.   :54.80   Min.   :18.50  
+##  1st Qu.:1.000   1st Qu.:15.00   1st Qu.:56.90   1st Qu.:19.50  
+##  Median :2.000   Median :15.50   Median :58.00   Median :20.00  
+##  Mean   :1.969   Mean   :15.38   Mean   :58.12   Mean   :19.96  
+##  3rd Qu.:3.000   3rd Qu.:15.70   3rd Qu.:59.69   3rd Qu.:20.40  
+##  Max.   :3.000   Max.   :17.50   Max.   :63.50   Max.   :21.50  
+##      EYEHD           EARHD            JAW      
+##  Min.   : 7.40   Min.   :11.10   Min.   :10.5  
+##  1st Qu.:10.00   1st Qu.:13.40   1st Qu.:11.6  
+##  Median :11.40   Median :13.90   Median :12.0  
+##  Mean   :11.32   Mean   :13.86   Mean   :12.0  
+##  3rd Qu.:12.50   3rd Qu.:14.50   3rd Qu.:12.4  
+##  Max.   :15.00   Max.   :16.00   Max.   :13.5</code></pre>
+<pre class="r"><code>qda.fit</code></pre>
+<pre><code>## Call:
+## qda(group ~ ., data = train)
+## 
+## Prior probabilities of groups:
+##         1         2         3 
+## 0.3538462 0.3230769 0.3230769 
+## 
+## Group means:
+##       WDIM   CIRCUM    FBEYE     EYEHD    EARHD      JAW
+## 1 15.17391 58.99478 20.10870 12.934783 14.47826 12.21739
+## 2 15.51429 57.53286 19.96667  9.861905 13.47143 11.98095
+## 3 15.46667 57.75714 19.77619 11.009524 13.57143 11.78571</code></pre>
+<pre class="r"><code>#PREDICTION &amp; CONFUSION TABLE FOR TRAINING SET
+
+pred.train &lt;- predict(qda.fit,train)$class
+
+#Accuracy on training data
+mean(pred.train == train$group)</code></pre>
+<pre><code>## [1] 0.8615385</code></pre>
+<pre class="r"><code>table(pred.train,train$group)</code></pre>
+<pre><code>##           
+## pred.train  1  2  3
+##          1 21  1  0
+##          2  0 16  2
+##          3  2  4 19</code></pre>
+<pre class="r"><code>#PREDICTION &amp; CONFUSION TABLE FOR TEST SET
+pred.test &lt;- predict(qda.fit,test)$class
+
+#Accuracy on test data
+mean(pred.test == test$group)</code></pre>
+<pre><code>## [1] 0.64</code></pre>
+<pre class="r"><code>table(pred.test,test$group)</code></pre>
+<pre><code>##          
+## pred.test 1 2 3
+##         1 7 2 1
+##         2 0 4 3
+##         3 0 3 5</code></pre>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

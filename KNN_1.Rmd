@@ -1,8 +1,5 @@
 ---
 title: "K-Nearest Neigbors"
-author: "Mustafa Arslan"
-date: "12/23/2020"
-output: html_document
 ---
 
 ```{r setup, include=FALSE}
@@ -17,7 +14,7 @@ library(psych)
 ```{r}
 getwd()
 setwd("C:/Users/myavu/OneDrive/Desktop/DATA SCIENCE/R/My Projects/Data Mining")
-getwd()
+
 ```
 
 ```{r}

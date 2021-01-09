@@ -1,8 +1,5 @@
 ---
 title: "Quadratic Discriminant Analysis"
-author: "Mustafa Arslan"
-date: "12/22/2020"
-output: html_document
 ---
 
 ```{r setup, include=FALSE}
