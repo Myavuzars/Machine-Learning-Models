@@ -59,7 +59,13 @@ EARHD: ear to top of the head measurement
 
 JAW:jaw width
 
+<br></br>
+<br></br>
+<br></br>
+**MODEL RESULT:**
 
+LDA and QDA both give me 64% accuracy prediction rate on Test, but KNN predicts 76% accuracy on th test data.
 
+So the winner is KNN.
 
 
