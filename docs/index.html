@@ -289,7 +289,7 @@ $(document).ready(function () {
   <a href="index.html">LDA QDA KNN</a>
 </li>
 <li>
-  <a href="Quadratic_Discriminant_Analysis_1.html">Linear Discriminant Analysis</a>
+  <a href="Linear_Discriminant_Analysis_1.html">Linear Discriminant Analysis</a>
 </li>
 <li>
   <a href="Quadratic_Discriminant_Analysis_1.html">Quadratic Discriminant Analysis</a>
@@ -316,17 +316,25 @@ $(document).ready(function () {
 </div>
 
 
-<p>#Brief Notes about LDA QDA and KNN</p>
-<p>Logistic Regression, Linear Discriminant Analysis(LDA), Quadratic discriminant Analysis(QDA) and K-Nearest Neighbor(KNN) are widely used Machine learning techniques for classification problems. Logistic Regression can be used only for Binary Categorical response, that is, if there are morethan two categorical response variables then we will use the other techniques.</p>
-<p>Nevertheless, LDA, QDA and KNN are more suitable for predicting the category in the situation where the response variable contains more than two classes.</p>
-<p>In Logistic Regression,</p>
-<p>When the distributions are assumed to be a Normal, we expect the model very similar to Logistic Regression. However, if the predictors are well separated then we expect better result from LDA.</p>
-<p>Likewise, if n small and the distribution of the predictors is approximately Normal in the predictors, LDA returns better result than Logistic Regresssion.</p>
-<p>LDA uses Baye’s theorem for classification, we assume that predictors that we use for classification are drawn from Gaussian Distribtution, with a specific mean and a common covariance matrix.</p>
-<p>QDA also assume that predictors are drawn from Gaussian Distribution, however, QDA assumes that each predictor has their own covariance matrix.</p>
-<p>QDA assumes that each class has its own covariance matrix.That is, it assumes that an observation from the kth class is of the from X ~ N(muk,SigmaK), where sigmak is a covarinace matrix for the kth class.</p>
+<p>Linear discriminant analysis, Quadratic discriminant analysis and K nearest neighbors along with Logistic regression are widely used Machine learning methods for classification problems.</p>
+<p>In this study, I am going compare these model on Football Data set and compare LDA, QDA and KNN. Since there are 3 response variables, we are not able to Logistic regression, and not interested in using Multinomial Logistic regression.</p>
+<p><br /> LDA uses Baye’s theorem for classification, we assume that predictors that we use for classification are drawn from Gaussian Distribution, with a specific mean and a common covariance matrix.</p>
+<p><br /> QDA also assume that predictors are drawn from Gaussian Distribution, however, QDA assumes that each predictor has their own covariance matrix. That is, it assumes that an observation from the kth class is of the from X ~ N(muk,SigmaK), where sigmak is a covariance matrix for the kth class.</p>
 <p>By using share common covariance matrix in LDA, LDA model becomes linear and QDA uses covariance matrix for each class, QDA becomes quadratic function.</p>
-<p>However, KNN uses completely different approach, KNN uses feature similarity to predict the response variables.</p>
+<p><br /> However, KNN uses completely different approach, KNN uses feature similarity to predict the response variables.</p>
+<p><br /> <br /> <strong>Football Dataset</strong></p>
+<p>This data set have 90 observation for 6 different predictors.</p>
+<p>GROUPS:</p>
+<p>Group1: High school football players</p>
+<p>Group2: College football players</p>
+<p>Group3: Non-football players</p>
+<p><br /> MEASUREMENTS: <br /></p>
+<p>WDIM: head width at widest dimension,</p>
+<p>CIRCUM: head circumference,</p>
+<p>FBEYE: front to back measurement at eye level</p>
+<p>EYEHD: eye to top of head measurement</p>
+<p>EARHD: ear to top of the head measurement</p>
+<p>JAW:jaw width</p>
 
 
 
