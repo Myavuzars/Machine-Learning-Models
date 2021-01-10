@@ -1,7 +1,7 @@
 name: "Classification Methods"
 output_dir: "docs"
 navbar:
-  title: "LDA QDA KNN"
+  title: "R"
   left:
   - text: "LDA QDA KNN"
     href: index.html
