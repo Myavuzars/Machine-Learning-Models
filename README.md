@@ -4,4 +4,4 @@ Quadratic Discriminant Analysis
 K Nearest Neighbor
 
 
-https://myavuzars.github.io/Machine-Learning-Models-/
+https://myavuzars.github.io/Machine-Learning-Models/
